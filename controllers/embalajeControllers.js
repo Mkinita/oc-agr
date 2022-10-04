@@ -4,6 +4,11 @@ import Embalaje from "../models/Embalaje.js"
 const agregarEmbalaje = async (req, res) =>{
     const embalaje = new Embalaje(req.body);
     embalaje.veterinario = req.veterinario._id;
+
+
+
+
+    
     try {
         
         const embalajeAlmacenado = await embalaje.save()
