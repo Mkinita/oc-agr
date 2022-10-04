@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import bcrypt from 'bcrypt';
+import bcryptjs from 'bcryptjs';
 import generarId from '../helpers/generarid.js';
 
 const veterinarioSchema = mongoose.Schema({
@@ -41,15 +41,15 @@ veterinarioSchema.pre('save', async function (next){
     if(!this.isModified('password')){
         next();
     }
-    const salt = await bcrypt.genSalt(10)
-    this.password = await bcrypt.hash(this.password, salt)
+    const salt = await bcryptjs.genSalt(10)
+    this.password = await bcryptjs.hash(this.password, salt)
 });
 
 
 veterinarioSchema.methods.comprobarPassword = async function (
     paswordFormulario
 ){ 
-    return await bcrypt.compare(paswordFormulario,this.password);
+    return await bcryptjs.compare(paswordFormulario,this.password);
 };
 
 const Veterinario = mongoose.model("Veterinario",veterinarioSchema);
